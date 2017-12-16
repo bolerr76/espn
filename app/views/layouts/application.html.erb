@@ -7,12 +7,36 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <nav class="navbar navbar-default">
+    <div class="container">
+      <div class="navbar-header">
+        <%= link_to "ESPN FAN FORUM", root_path, class: "navbar-brand" %> <!-- ovo se nalazi na lijevoj strani-->
+      </div>
+      
+      <ul class="navbar-nav nav navbar-right"> <!--postavljanje navbara u desno (bootstrap) -->
+        <% if user_signed_in? %>
+          <li><%= link_to "Sign Out", destroy_user_session_path, method: :delete %></li> <!-- ako je user logovan prikazace Sign Out-->
+        <% else %>
+          <li><%= link_to "Log In", new_user_session_path %></li> <!-- ako user nije logovan prikazace LogIN -->
+          <li><%= link_to "Sign Up", new_user_registration_path %> </li> 
+        <% end %>
+      </ul>
+      
+      <% if user_signed_in? %>
+        <p><%= link_to "Post It", new_message_path, class: "navbar-text navbar-link" %></p>
+      <% end %>
+      
+    </div>
+  </nav>
+  
+  
+  <p class="notice"><%= notice %></p>
+  <p class="alert"><%= alert %></p>
 
-<p class="notice"><%= notice %></p>
-<p class="alert"><%= alert %></p>
+  <div class="container">
+    <%= yield %>
+  </div>
 
-
-<%= yield %>
 
 </body>
 </html>
